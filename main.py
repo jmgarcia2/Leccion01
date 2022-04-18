@@ -2,6 +2,18 @@
 # -*- coding: utf-8 -*-
 #
 
+"""
+Code illustration: 2.03
+
+Adding View Menu Items to demonstrate
+other Types of Menu Items
+    1. Checkbutton menu-item
+    2. Radiobutton menu-item
+    3. Cascade menu-item
+
+@Tkinter GUI Application Development Blueprints
+"""
+
 def main():
 
     import tkinter as tk
@@ -58,10 +70,51 @@ def main():
     edit_menu.add_separator()
     edit_menu.add_command(label="Select All", underline=7, accelerator="Ctrl+A")
 
+    ##
+    # Implementing Checkbutton, Radiobutton and Cascade menu-items under View Menu in this iteration
+    ##
+
     view_menu = tk.Menu(menu_bar, tearoff=0)
     # View menu-items displays some variations,
     # so we tackle view menu code to be entered here in a later section
     menu_bar.add_cascade(label="View", menu=view_menu)
+    show_line_number = tk.IntVar()
+    show_line_number.set(1)
+    view_menu.add_checkbutton(label="Show Line Number", variable=show_line_number)
+    show_cursor_info = tk.IntVar()
+    show_cursor_info.set(1)
+    view_menu.add_checkbutton(label="Show Cursor Location at Bottom", variable=show_cursor_info)
+    highligth_line = tk.IntVar()
+    view_menu.add_checkbutton(label="HighLight Current Line", onvalue=1,
+                              offvalue=0, variable=highligth_line)
+    themes_menu = tk.Menu(menu_bar, tearoff=0)
+    view_menu.add_cascade(label="Themes", menu=themes_menu)
+
+    """
+    color scheme is defined with dictionary elements like -
+            theme_name : foreground_color.background_color
+    """
+    color_schemes = {
+        'Default': '#000000.#FFFFFF',
+        'Greygarious': '#83406A.#D1D4D1',
+        'Aquamarine': '#5B8340.#D1E7E0',
+        'Bold Beige': '#4B4620.#FFF0E1',
+        'Cobalt Blue': '#ffffBB.#3333aa',
+        'Olive Green': '#D1E7E0.#5B8340',
+        'Night Mode': '#FFFFFF.#000000',
+    }
+
+    theme_choice = tk.StringVar()
+    theme_choice.set('Default')
+    for k in sorted(color_schemes):
+        themes_menu.add_radiobutton(label=k, variable=theme_choice)
+
+
+
+
+
+
+
 
     about_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="About", menu=about_menu)
