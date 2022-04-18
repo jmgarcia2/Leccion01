@@ -24,6 +24,30 @@ def main():
     PROGRAM_NAME = " Footprint Editor "
     root.title(20 * BLANK_SPACE + PROGRAM_NAME)
 
+    # Adding Text Widget Built-in Functionality
+
+    def cut():
+        content_text.event_generate("<<Cut>>")
+        return "break"
+
+    def copy():
+        content_text.event_generate("<<Copy>>")
+        return "break"
+
+    def paste():
+        content_text.event_generate("<<Paste>>")
+        return "break"
+
+    def undo():
+        content_text.event_generate("<<Undo>>")
+        return "break"
+
+    def redo():
+        content_text.event_generate("<<Redo>>")
+        return "break"
+
+    # end of this iteration
+
     # getting icons ready for compound menu
     new_file_icon = tk.PhotoImage(file='icons/new_file.gif')
     open_file_icon = tk.PhotoImage(file='icons/open_file.gif')
@@ -55,16 +79,16 @@ def main():
     menu_bar.add_cascade(label="Edit", menu=edit_menu)
 
     edit_menu.add_command(label="Undo", accelerator="Ctrl+Z",
-                          compound="left", image=undo_icon)
+                          compound="left", image=undo_icon, command=undo)
     edit_menu.add_command(label="Redo", accelerator="Ctrl+Y",
-                          compound="left", image=redo_icon)
+                          compound="left", image=redo_icon, command=redo)
     edit_menu.add_separator()
     edit_menu.add_command(label="Cut", accelerator="Ctrl+X",
-                          compound="left", image=cut_icon)
+                          compound="left", image=cut_icon, command=cut)
     edit_menu.add_command(label="Copy", accelerator="Ctrl+C",
-                          compound="left", image=copy_icon)
+                          compound="left", image=copy_icon, command=copy)
     edit_menu.add_command(label="Paste", accelerator="Ctrl+V",
-                          compound="left", image=paste_icon)
+                          compound="left", image=paste_icon, command=paste)
     edit_menu.add_separator()
     edit_menu.add_command(label="Find", underline=0, accelerator="Ctrl+F")
     edit_menu.add_separator()
@@ -110,12 +134,6 @@ def main():
         themes_menu.add_radiobutton(label=k, variable=theme_choice)
 
 
-
-
-
-
-
-
     about_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="About", menu=about_menu)
     about_menu.add_command(label="About")
@@ -132,7 +150,7 @@ def main():
     line_number_bar.pack(side="left", fill="y")
 
     # add the main content Text widget and Scrollbar widget
-    content_text = tk.Text(root, wrap="word")
+    content_text = tk.Text(root, wrap="word", undo=1)
     content_text.pack(expand="yes", fill="both")
     scroll_bar = tk.Scrollbar(content_text)
     content_text.configure(yscrollcommand=scroll_bar.set)
