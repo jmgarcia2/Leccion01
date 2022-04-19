@@ -42,7 +42,7 @@ def main():
         content_text.event_generate("<<Undo>>")
         return "break"
 
-    def redo():
+    def redo(event=None):
         content_text.event_generate("<<Redo>>")
         return "break"
 
