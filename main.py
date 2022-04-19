@@ -157,6 +157,10 @@ def main():
     scroll_bar.config(command=content_text.yview)
     scroll_bar.pack(side="right", fill="y")
 
+    # handling redo quirk
+    content_text.bind('<Control-y>', redo)
+    content_text.bind('<Control-Y>', redo)
+
     root.mainloop()
 
 
